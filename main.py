@@ -192,7 +192,7 @@ class Main(object):
     def initialize_student_page(self):
         self.login_central_widget.deleteLater()
 
-        main_window.setFixedSize(1150, 650)  # resize
+        main_window.setFixedSize(1150, 650)  
         qtRectangle = main_window.frameGeometry()
         centerPoint = QDesktopWidget().availableGeometry().center()
         qtRectangle.moveCenter(centerPoint)
@@ -497,7 +497,7 @@ class Main(object):
         for i in range(3):
             for j in range(3):
                 self.event_object = QtWidgets.QGroupBox(self.rewards)
-                self.event_object.setFixedSize(600, 350)
+                self.event_object.setFixedSize(350, 350)
                 self.event_object.setLayout(QtWidgets.QGridLayout())
                 self.label = self.create_QLabel("event", "test", "  " + name_list[index][0], 10, 10, 100, 30)
                 self.cost_label = self.create_QLabel("event", "point_cost",
