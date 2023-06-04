@@ -30,22 +30,22 @@ QLabel#incorrect_login{
 }
 
 QPushButton#student_login_button {
-    border: red;
+    border:#3d6d81;
     color: #FFFFFF;
-    background: red;
+    background: #3d6d81;
 }
 QPushButton#student_login_button:hover {
     background: #FF2E2E;
 }
 QPushButton#student_login_button:pressed {
-    color: red;
+    color: black;
     background: #FFFFFF;
 }
 
 QPushButton#administrator_login_button {
-    border: red;
+    border:#7b7e53;
     color: #FFFFFF;
-    background: red;
+    background:#7b7e53;
 }
 QPushButton#administrator_login_button:hover {
     background: #FF2E2E;

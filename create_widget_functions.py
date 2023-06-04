@@ -54,7 +54,6 @@ class create_QLabel():
             self.QLabel = QtWidgets.QLabel(self.slideshow_description_groupbox)
         elif container == "event":
             self.QLabel = QtWidgets.QLabel(self.event_object)
-
         # Administrator
         elif container == "admin_dashboard_tab":
             self.QLabel = QtWidgets.QLabel(self.admin_dashboard_tab)
