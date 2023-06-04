@@ -4,6 +4,7 @@ import os
 import sqlite3
 from datetime import time
 import time
+from random import random
 
 # folium v0.12.1 - Used to display geographical data
 import folium
@@ -113,7 +114,12 @@ class Main(object):
                                                    50)
         self.student_create_account = self.create_QPushButton("login_widget_container", "student_login_button",
                                                               "Create a Student Account", "None", 80, 350, 240, 30)
+
         self.student_create_account.clicked.connect(self.setup_student_account_creation)
+
+
+
+
         # Line divider between logins
         self.login_divider_line = self.create_QFrame("login_widget_container", "login_screen_elements", "VLine", 399,
                                                      40, 1, 410)
@@ -151,6 +157,7 @@ class Main(object):
                                                                     240, 30)
         self.administrator_create_account.clicked.connect(self.setup_administrator_account_creation)
         main_window.setStatusBar(None)
+
 
     def setup_student_account_creation(self):
         self.student_account_frame = QtWidgets.QFrame()
@@ -406,6 +413,8 @@ class Main(object):
 
         self.forgot_password_frame.show()
 
+
+
     def setup_portal(self):
         global username
         global password
@@ -449,7 +458,7 @@ class Main(object):
     def initialize_student_page(self):
         self.login_central_widget.deleteLater()
 
-        main_window.setFixedSize(1150, 650)  # resize
+        main_window.setFixedSize(1150, 650)  
         qtRectangle = main_window.frameGeometry()
         centerPoint = QDesktopWidget().availableGeometry().center()
         qtRectangle.moveCenter(centerPoint)
@@ -597,14 +606,17 @@ class Main(object):
         self.upcoming_events_label = self.create_QLabel("upcoming_events_tab", "upcoming_events_label",
                                                         "Upcoming Events", 20, 20, 600, 50)
         self.upcoming_events_title_line = self.create_QFrame("upcoming_events_tab", "upcoming_events_title_line",
+
                                                              "HLine", 10, 65, 600, 6)
-        self.student_calendar = self.create_QCalendar("upcoming_events_tab", 20, 80, 450, 450)  # change map fatness
+        self.student_calendar = self.create_QCalendar("upcoming_events_tab", 20, 80, 450, 450)  # change map fatness"HLine", 10, 65, 500, 6)
+        self.student_calendar = self.create_QCalendar("upcoming_events_tab", 20, 80, 450, 450) # change map fatness
+
         self.student_calendar.selectionChanged.connect(self.student_upcoming_events_calendar)
-        self.day_events_label = self.create_QLabel("upcoming_events_tab", "day_events_label", "  Selected Event", 620,
-                                                   80, 330, 30)
-        self.day_events = self.create_QTextEdit("upcoming_events_tab", "day_events", True, 620, 110, 330, 430)
+        self.day_events_label = self.create_QLabel("upcoming_events_tab", "day_events_label", "  Selected Event", 560,
+                                                   80, 365, 30)
+        self.day_events = self.create_QTextEdit("upcoming_events_tab", "day_events", True, 560, 110, 365, 430)
         self.current_day = self.student_calendar.selectedDate().toString()
-        self.day_events_label.setText("Events on: " + self.current_day[4:] + ":")  # changed to self
+        self.day_events_label.setText("Events on: " + self.current_day[4:] + ":")
         self.day_events.setAlignment(Qt.AlignTop)
 
         # Maps Tab
@@ -673,7 +685,6 @@ class Main(object):
         self.info.setWordWrapMode(True)
 
         # send button
-
         self.QPushButton = QtWidgets.QPushButton(self.points_tab)
         self.QPushButton.setText("Send For Approval")
         self.QPushButton.setAccessibleName("push_button")
@@ -741,10 +752,9 @@ class Main(object):
         self.rewards_title_line = self.create_QFrame("rewards_tab", "rewards_title_line", "HLine", 10, 65, 600, 6)
         self.rewards_my_points_label = self.create_QLabel("rewards_tab", "rewards_my_points_label",
                                                           "  Your Points: " + str(self.user_points), 680, 40, 300, 30)
+
         self.rewards_tab_objects = self.create_QScrollArea("rewards_tab", "rewards_QScrollArea", "grid_layout", 20, 120,
-                                                           1100, 700)
-        self.rewards_tab_objects = self.create_QScrollArea("rewards_tab", "rewards_QScrollArea", "grid_layout", 20, 120,
-                                                           1100, 700)
+                                                           950, 425)
         self.rewards = self.rewards_tab_objects[0]
         self.rewards_layout = self.rewards_tab_objects[1]
         self.rewards_events_scrollArea = self.rewards_tab_objects[2]
@@ -754,7 +764,7 @@ class Main(object):
         for i in range(3):
             for j in range(3):
                 self.event_object = QtWidgets.QGroupBox(self.rewards)
-                self.event_object.setFixedSize(600, 350)
+                self.event_object.setFixedSize(340, 300)
                 self.event_object.setLayout(QtWidgets.QGridLayout())
                 self.label = self.create_QLabel("event", "test", "  " + name_list[index][0], 10, 10, 100, 30)
                 self.cost_label = self.create_QLabel("event", "point_cost",
@@ -1214,7 +1224,7 @@ class Main(object):
                         self.admin_current_events.setText("Events on " + selected_date[4:] + ": " + event[2])
 
     # Deduct points from the user that pruchases the merchandise
-    def deduct_points(self):
+    def deduct_points(self):  
         global username
         global password
         global user
@@ -1278,23 +1288,29 @@ class Main(object):
                       "Oct": 10, "Nov": 11, "Dec": 12}
         numerical_data_list[1] = month_dict[numerical_data_list[1]]
         self.day_events.clear()
-        current_text = self.day_events.toPlainText()
+        current_text = '<html><body style="font-size: 10pt;">'  # Opening HTML tags and setting font size (reduced to 10pt)
         for event in events:
             if ((event[7] == numerical_data_list[1]) and (event[8] == numerical_data_list[2]) and (
                     event[6] == numerical_data_list[3])):
-                self.day_events.clear()
-                self.day_events.setText(
-                    current_text + "\n" + "Event: " + event[2] + "\n" + "Address: " + event[3] + "\n"
-                    + "Type: " + event[4] + "\n" + "Points: " + str(event[5]) + "\n" + "Coordinates: " + str(
-                        event[9]) + ", " + str(event[10]))
-
-                # self.day_events_picture = self.create_QLabel("upcoming_events_tab", "day_events_picture", "",
-                #                                              400, 210, 300, 320)
-                # self.day_events_picture.setPixmap(QPixmap(picture))
+                # Insert the image into the QTextEdit widget using HTML and CSS
                 picture = event[11]
-                document = self.day_events.document()
-                cursor = QTextCursor(document)
-                cursor.insertImage(picture)
+                if picture:
+                    current_text += '<div style="display: flex; align-items: center; flex-direction: column;">' \
+                                    + '<img src="{}" style="width: 100px; height: auto; margin-bottom: 10px;">'.format(
+                        picture) \
+                                    + '<p><strong>Event:</strong> ' + event[2] + '</p>' \
+                                    + '<p><strong>Address:</strong> ' + event[3] + '</p>' \
+                                    + '<p><strong>Type:</strong> ' + event[4] + '</p>' \
+                                    + '<p><strong>Points:</strong> ' + str(event[5]) + '</p>' \
+                                    + '<p><strong>Coordinates:</strong> ' + str(event[9]) + ', ' + str(
+                        event[10]) + '</p>' \
+                                    + '</div>' \
+                                    + '<br>'  # Add a line space between events
+
+        current_text += '</body></html>'  # Closing HTML tags
+
+        # Set the HTML content as the text of the QTextEdit widget
+        self.day_events.setHtml(current_text)
 
     # Widget Creation Functions
     def create_QCheckBox(self, container, x_coordinate, y_coordinate, width, length):
