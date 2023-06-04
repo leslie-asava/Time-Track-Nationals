@@ -88,8 +88,9 @@ class Main(object):
         self.login_screen_logo.show()
 
         # Student Login
-        self.student_login_title = self.create_QLabel("login_widget_container", "login_titles", "Student Login", 145,
+        self.student_login_title = self.create_QLabel("login_widget_container", "login_titles", "Student Login", 105,
                                                       80, 200, 50)
+        self.student_login_title.setStyleSheet("font-size: 30px; font-weight: bold;")
         self.student_username_label = self.create_QLabel("login_widget_container", "login_screen_labels", "Email ID",
                                                          80, 122, 200, 50)
         self.student_username = self.create_QLineEdit("login_widget_container", "login_screen_text_fields", False, 80,
@@ -126,7 +127,8 @@ class Main(object):
 
         # Administrator Login
         self.administrator_login_title = self.create_QLabel("login_widget_container", "login_titles",
-                                                            "Administrator Login", 525, 80, 200, 50)
+                                                            "Administrator Login", 460, 80, 350, 50)
+        self.administrator_login_title.setStyleSheet("font-size: 30px; font-weight: bold;")
         self.administrator_username_label = self.create_QLabel("login_widget_container", "login_screen_labels",
                                                                "Email ID", 480, 122, 200, 50)
         self.administrator_username = self.create_QLineEdit("login_widget_container", "login_screen_text_fields", False,
@@ -458,7 +460,7 @@ class Main(object):
     def initialize_student_page(self):
         self.login_central_widget.deleteLater()
 
-        main_window.setFixedSize(1150, 650)  
+        main_window.setFixedSize(1150, 650)
         qtRectangle = main_window.frameGeometry()
         centerPoint = QDesktopWidget().availableGeometry().center()
         qtRectangle.moveCenter(centerPoint)
@@ -545,6 +547,7 @@ class Main(object):
         self.rewards_tab = QtWidgets.QWidget()
         self.community_tab = QtWidgets.QWidget()
         self.student_profile_tab = QtWidgets.QWidget()
+        self.faq_tab = QtWidgets.QWidget()
 
         self.tab_widget.addTab(self.dashboard_tab, "Dashboard")
         self.tab_widget.addTab(self.upcoming_events_tab, "Upcoming Events")
@@ -552,6 +555,7 @@ class Main(object):
         self.tab_widget.addTab(self.points_tab, "Points")
         self.tab_widget.addTab(self.rewards_tab, "Rewards")
         self.tab_widget.addTab(self.student_profile_tab, "My Student Profile")
+        self.tab_widget.addTab(self.faq_tab, "FAQs")
 
         # Dashboard Tab
         self.intro_label = self.create_QLabel("central_widget", "intro_label",
@@ -761,6 +765,7 @@ class Main(object):
 
         index = 0
 
+
         for i in range(3):
             for j in range(3):
                 self.event_object = QtWidgets.QGroupBox(self.rewards)
@@ -851,6 +856,29 @@ class Main(object):
 
         self.student_purchases_image4_label = self.create_QLabel("student_profile_tab", "student_purchases_label",
                                                                  "Chips", 420, 620, 200, 50)
+
+        # FAQ Tab
+        self.faq_label = QtWidgets.QLabel(self.faq_tab)
+        self.faq_label.setGeometry(QtCore.QRect(20, 20, 560, 40))
+        self.faq_label.setText("<h2>Frequently Asked Questions</h2>")
+
+        self.faq_question1 = QtWidgets.QLabel(self.faq_tab)
+        self.faq_question1.setGeometry(QtCore.QRect(20, 80, 560, 30))
+        self.faq_question1.setText("<b>Q: big pp</b>")
+
+        self.faq_answer1 = QtWidgets.QLabel(self.faq_tab)
+        self.faq_answer1.setGeometry(QtCore.QRect(20, 120, 560, 40))
+        self.faq_answer1.setText("A: suck answer")
+
+        self.faq_question2 = QtWidgets.QLabel(self.faq_tab)
+        self.faq_question2.setGeometry(QtCore.QRect(20, 180, 560, 30))
+        self.faq_question2.setText("<b>Q: vivaans bodycount</b>")
+
+        self.faq_answer2 = QtWidgets.QLabel(self.faq_tab)
+        self.faq_answer2.setGeometry(QtCore.QRect(20, 220, 560, 40))
+        self.faq_answer2.setText("A: infinite")
+
+        # Add more FAQ questions also change before shit glad i learnt html lmao
 
         self.tab_widget.show()
 
@@ -1224,7 +1252,7 @@ class Main(object):
                         self.admin_current_events.setText("Events on " + selected_date[4:] + ": " + event[2])
 
     # Deduct points from the user that pruchases the merchandise
-    def deduct_points(self):  
+    def deduct_points(self):
         global username
         global password
         global user
@@ -1413,7 +1441,6 @@ class Slideshow(QRunnable):
                 break
 
         cursor.close()
-
 
 if __name__ == "__main__":
     import sys
