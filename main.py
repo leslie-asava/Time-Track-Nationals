@@ -10,7 +10,7 @@ from random import random
 import folium
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QRunnable, pyqtSlot, QThreadPool
-from PyQt5.QtGui import QIcon, QPixmap, QTextCursor, QFont
+from PyQt5.QtGui import QIcon, QPixmap, QFont
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import *
 from folium.plugins import MarkerCluster
@@ -547,6 +547,7 @@ class Main(object):
         self.rewards_tab = QtWidgets.QWidget()
         self.community_tab = QtWidgets.QWidget()
         self.student_profile_tab = QtWidgets.QWidget()
+        self.chatbot_tab = QtWidgets.QWidget()
         self.faq_tab = QtWidgets.QWidget()
 
         self.tab_widget.addTab(self.dashboard_tab, "Dashboard")
@@ -556,6 +557,7 @@ class Main(object):
         self.tab_widget.addTab(self.rewards_tab, "Rewards")
         self.tab_widget.addTab(self.student_profile_tab, "My Student Profile")
         self.tab_widget.addTab(self.faq_tab, "FAQs")
+        self.tab_widget.addTab(self.chatbot_tab, "Chatbot")
 
         # Dashboard Tab
         self.intro_label = self.create_QLabel("central_widget", "intro_label",
@@ -861,24 +863,46 @@ class Main(object):
         self.faq_label = QtWidgets.QLabel(self.faq_tab)
         self.faq_label.setGeometry(QtCore.QRect(20, 20, 560, 40))
         self.faq_label.setText("<h2>Frequently Asked Questions</h2>")
-
+        #self.faq__title_line = self.create_QFrame("faq_tab", "faq__title_line", "HLine", 10, 65, 600, 6)Z
         self.faq_question1 = QtWidgets.QLabel(self.faq_tab)
         self.faq_question1.setGeometry(QtCore.QRect(20, 80, 560, 30))
-        self.faq_question1.setText("<b>Q: big pp</b>")
+        self.faq_question1.setText("<b>Q: How can I earn points? </b>")
 
         self.faq_answer1 = QtWidgets.QLabel(self.faq_tab)
-        self.faq_answer1.setGeometry(QtCore.QRect(20, 120, 560, 40))
-        self.faq_answer1.setText("A: suck answer")
+        self.faq_answer1.setGeometry(QtCore.QRect(20, 120, 1000, 100))
+        self.faq_answer1.setText("A: To earn points ,  you can participate in spirit activities and visit the Points "
+                                 "page .  On the Points page , choose the event you attended from the \n\n dropdown "
+                                 "menu , rate it on a scale of 1 to 5 stars , provide a description of your "
+                                 "experience in approximately 100 words , and submit the form.   After \n\n you "
+                                 "submit , the administrator will review your submission and award you points.  These "
+                                 "points can later be redeemed for exciting prizes at the prize shop.")
 
         self.faq_question2 = QtWidgets.QLabel(self.faq_tab)
-        self.faq_question2.setGeometry(QtCore.QRect(20, 180, 560, 30))
-        self.faq_question2.setText("<b>Q: vivaans bodycount</b>")
+        self.faq_question2.setGeometry(QtCore.QRect(20, 250, 560, 30))
+        self.faq_question2.setText("<b>Q: How can I find the location of events?</b>")
 
         self.faq_answer2 = QtWidgets.QLabel(self.faq_tab)
-        self.faq_answer2.setGeometry(QtCore.QRect(20, 220, 560, 40))
-        self.faq_answer2.setText("A: infinite")
+        self.faq_answer2.setGeometry(QtCore.QRect(20, 290, 1000, 100))
+        self.faq_answer2.setText("A: Finding the location of events is easy!  Our program offers a convenient "
+                                 "calendar feature that showcases all the upcoming events and their\n\n specific "
+                                 "locations.  Additionally , you can utilize the maps tab , where you'll find "
+                                 "detailed information such as the event's date , time , and an interactive \n\n map "
+                                 "displaying its location.  This way , you'll have all the necessary details to "
+                                 "ensure you don't miss out on any of our exciting events!")
 
-        # Add more FAQ questions also change before shit glad i learnt html lmao
+        self.faq_question3 = QtWidgets.QLabel(self.faq_tab)
+        self.faq_question3.setGeometry(QtCore.QRect(20, 420, 560, 30))
+        self.faq_question3.setText("<b>Q: How can I redeem my points?</b>")
+        self.faq_answer3 = QtWidgets.QLabel(self.faq_tab)
+        self.faq_answer3.setGeometry(QtCore.QRect(20, 460, 1000, 100))
+        self.faq_answer3.setText("A: To redeem your points ,  visit the Rewards page .  On the Rewards page ,  "
+                                 "you'll find a list of all the prizes you can potentially redeem.  Simply click on "
+                                 "the prize you'd like to \n\n redeem .  After you click Redeem,  your points will be"
+                                 "deducted and you'll be able to pick up your prize at the next event.")
+        # end faq
+
+        self.chatbot_label = QtWidgets.QLabel(self.chatbot_tab)
+        self.chatbot_label.setGeometry(QtCore.QRect(20, 20, 560, 40))
 
         self.tab_widget.show()
 

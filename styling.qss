@@ -181,6 +181,10 @@ QLabel#student_purchases_label {
 QFrame#student_profile_title_line {
     background-color: black;
 }
+/* FAQ only 2 lines below */
+QFrame#faq_title_line {
+    background-color: black;
+}
 
 QLabel#student_profile_data_label {
     font: 20px;
