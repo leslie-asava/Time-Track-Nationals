@@ -1,6 +1,11 @@
-from PyQt5 import QtWidgets, QtCore, Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QCheckBox, QTabWidget, QTabBar, QStylePainter, QStyleOptionTab, QStyle, QComboBox
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtGui import QIcon, QPixmap, QFontMetrics
+from PyQt5.QtWidgets import QSpacerItem, QSizePolicy, QLabel, QListWidgetItem, QTabWidget, QTabBar, QStylePainter, QStyleOptionTab, QStyle, QComboBox, QVBoxLayout, QHBoxLayout, QScrollArea, QTextEdit, QLineEdit, QPushButton, QWidget, QListWidget
+
+import openai
+
+openai.api_key = "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"
 
 class create_QComboBox:
     def __init__(self, container, x_coordinate, y_coordinate, width, length):
@@ -252,7 +257,7 @@ class create_horizontal_QSlider():
 
 class TabBar(QTabBar):
     def tabSizeHint(self, index):
-        self.setGeometry(0, 120, 180, 380)
+        self.setGeometry(0, 120, 180, 700)
         s = QTabBar.tabSizeHint(self, index)
         s.transpose()
         return s
@@ -285,4 +290,187 @@ class VerticalTabWidget(QTabWidget):
         self.setTabBar(TabBar())
         self.setTabPosition(QtWidgets.QTabWidget.West)
         self.setStyleSheet("QTabBar::tab { height: 180px; width: 50px;}")
+        #self.setStyleSheet("QTabBar::tab {width: 50px;}")
 
+
+class ChatGPTWindowWidget(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.setFixedHeight(570)
+
+        self.init_ui()
+
+    def init_ui(self):
+        layout = QVBoxLayout()
+
+        self.list_widget = QListWidget()
+        self.line_edit = QLineEdit()
+        self.line_edit.setPlaceholderText("Send a message")
+
+        self.line_edit.setFixedHeight(30)
+
+        self.line_edit.setStyleSheet("border-radius:5px; font-size: 10pt")
+        
+        # Enable the clear button in the QLineEdit
+        self.line_edit.setClearButtonEnabled(False)
+        
+        # Create an icon for the button
+        icon = QIcon(r"C:\Users\lesli\OneDrive\Documents\GitHub\fork-time\Nationals Time Track\Time-Track-Nationals\ChatGPT Icons\send.svg")
+        
+        # Create an action with the icon
+        action = self.line_edit.addAction(icon, QLineEdit.TrailingPosition)
+        
+        # Connect a slot to the triggered signal of the action
+        action.triggered.connect(self.send_prompt)
+
+        self.line_edit.returnPressed.connect(self.send_prompt)
+
+        layout.addWidget(self.list_widget)
+        layout.addWidget(self.line_edit)
+
+        self.setLayout(layout)
+
+        #self.add_prompt_widget("Hello")
+
+    def send_prompt(self):
+        text = self.line_edit.text()
+        
+        # Fetch user prompt      
+        self.add_prompt_widget(text)
+
+        # Stop thread if already running
+        try:
+            self.request_thread.exit()
+        except:
+            pass
+        
+        # Create and start new thread
+        self.request_thread = RequestThread()
+        self.request_thread.prompt = text 
+        self.request_thread.response_signal.connect(self.add_response_widget)
+        self.request_thread.start()
+
+        self.line_edit.clear()
+
+    def add_prompt_widget(self, text):
+        list_item = QListWidgetItem()
+
+        # Create a QLabel widget with the item text
+        prompt_widget = ChatGPTPromptWidget(text)
+
+        # Set the label widget as the list item widget
+        list_item.setSizeHint(prompt_widget.sizeHint())
+        self.list_widget.addItem(list_item)
+        self.list_widget.setItemWidget(list_item, prompt_widget)
+
+    def add_response_widget(self, text):
+        list_item = QListWidgetItem()
+
+        # Create a QLabel widget with the item text
+        prompt_widget = ChatGPTResponseWidget(text)
+
+        # Set the label widget as the list item widget
+        list_item.setSizeHint(prompt_widget.sizeHint())
+        self.list_widget.addItem(list_item)
+        self.list_widget.setItemWidget(list_item, prompt_widget)
+
+class ChatGPTPromptWidget(QWidget):
+    def __init__(self, text):
+        super().__init__()
+        self.text = text
+        self.initUI()
+
+    def initUI(self):
+        # Create the main horizontal layout
+        layout = QHBoxLayout(self)
+
+        vbox_layout = QVBoxLayout()
+
+        # Create an image label and add it to the layout
+        image_label = QLabel(self)
+        pixmap = QPixmap(r'ChatGPT Icons/user.png')  # Provide the path to your image file
+        image_label.setPixmap(pixmap.scaledToHeight(30))
+        image_label.setStyleSheet("padding-top:0px")
+
+        spacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        
+        vbox_layout.addWidget(image_label)
+        vbox_layout.addItem(spacer)
+
+        layout.addLayout(vbox_layout)
+
+
+        self.text_widget = QLabel(self)
+        self.text_widget.setAlignment(Qt.AlignLeft)
+        self.text_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.text_widget.setWordWrap(True)
+        self.text_widget.setStyleSheet("font-size: 11pt")
+
+        layout.addWidget(self.text_widget)
+
+        # Set the main layout for the widget
+        self.setLayout(layout)
+
+        self.text_widget.setText(self.text)
+
+class ChatGPTResponseWidget(QWidget):
+    def __init__(self, text):
+        super().__init__()
+        self.text = text
+        self.initUI()
+
+
+    def initUI(self):
+        # Create the main horizontal layout
+        layout = QHBoxLayout(self)
+
+        vbox_layout = QVBoxLayout()
+
+        # Create an image label and add it to the layout
+        image_label = QLabel(self)
+        pixmap = QPixmap(r'ChatGPT Icons/chatgpt-icon.png')  # Provide the path to your image file
+        image_label.setPixmap(pixmap.scaledToHeight(30))
+        image_label.setStyleSheet("padding-top:0px")
+
+        spacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        
+        vbox_layout.addWidget(image_label)
+        vbox_layout.addItem(spacer)
+
+        layout.addLayout(vbox_layout)
+
+
+        self.text_widget = QLabel(self)
+        self.text_widget.setAlignment(Qt.AlignLeft)
+        self.text_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.text_widget.setWordWrap(True)
+        self.text_widget.setStyleSheet("font-size: 11pt")
+
+        layout.addWidget(self.text_widget)
+
+        # Set the main layout for the widget
+        self.setLayout(layout)
+
+        self.text_widget.setText(self.text)
+
+# Seperate thread to make requests to OpenAI and wait for responses
+class RequestThread(QThread):
+    prompt = ""
+    response_signal = pyqtSignal(str)
+
+    def run(self):
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                    {"role": "system", "content": "You are a chatbot"},
+                    {"role": "user", "content": self.prompt},
+                ]
+        )
+
+        result = ''
+        for choice in response.choices:
+            result += choice.message.content
+
+        # Send results back to main thread
+        self.response_signal.emit(result)

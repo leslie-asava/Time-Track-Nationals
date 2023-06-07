@@ -18,7 +18,7 @@ from folium.plugins import MarkerCluster
 # import class functions
 import create_widget_functions
 import user_details
-from create_widget_functions import VerticalTabWidget
+from create_widget_functions import VerticalTabWidget, ChatGPTWindowWidget
 
 sqliteConnection = sqlite3.connect('identifier.sqlite')
 cursor = sqliteConnection.cursor()
@@ -89,7 +89,7 @@ class Main(object):
 
         # Student Login
         self.student_login_title = self.create_QLabel("login_widget_container", "login_titles", "Student Login", 105,
-                                                      80, 200, 50)
+                                                      80, 300, 50)
         self.student_login_title.setStyleSheet("font-size: 30px; font-weight: bold;")
         self.student_username_label = self.create_QLabel("login_widget_container", "login_screen_labels", "Email ID",
                                                          80, 122, 200, 50)
@@ -908,6 +908,15 @@ class Main(object):
 
         self.chatbot_label = QtWidgets.QLabel(self.chatbot_tab)
         self.chatbot_label.setGeometry(QtCore.QRect(20, 20, 560, 40))
+
+        self.chatbot_layout = QtWidgets.QVBoxLayout()
+        self.chatbot_widget = ChatGPTWindowWidget()
+        
+
+        h_spacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.chatbot_layout.addWidget(self.chatbot_widget)
+        self.chatbot_layout.addItem(h_spacer)
+        self.chatbot_tab.setLayout(self.chatbot_layout)
 
         self.tab_widget.show()
 
