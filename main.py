@@ -118,9 +118,6 @@ class Main(object):
 
         self.student_create_account.clicked.connect(self.setup_student_account_creation)
 
-
-
-
         # Line divider between logins
         self.login_divider_line = self.create_QFrame("login_widget_container", "login_screen_elements", "VLine", 399,
                                                      40, 1, 410)
@@ -160,7 +157,6 @@ class Main(object):
         self.administrator_create_account.clicked.connect(self.setup_administrator_account_creation)
         main_window.setStatusBar(None)
 
-
     def setup_student_account_creation(self):
         self.student_account_frame = QtWidgets.QFrame()
         self.student_account_frame.setWindowTitle("Create Student Account")
@@ -177,7 +173,7 @@ class Main(object):
         self.banner_label.setStyleSheet("background-color: lightblue;")
 
         self.student_account_title = QtWidgets.QLabel("Create Student Account", self.student_account_frame)
-        self.student_account_title.setGeometry(QtCore.QRect(270,-10 , 400, 100))
+        self.student_account_title.setGeometry(QtCore.QRect(270, -10, 400, 100))
         self.student_account_title.setStyleSheet("font-size: 30px; font-weight: bold;")
 
         self.login_screen_logo = QtWidgets.QLabel(self.student_account_frame)
@@ -217,7 +213,6 @@ class Main(object):
         self.security_question_entry = QtWidgets.QLineEdit(self.student_account_frame)
         self.security_question_entry.setGeometry(QtCore.QRect(200, 300, 200, 30))
 
-
         self.security_answer_label = QtWidgets.QLabel("Answer:", self.student_account_frame)
         self.security_answer_label.setGeometry(QtCore.QRect(490, 300, 100, 30))
         self.security_answer_label.setStyleSheet("font-size: 15px; font-weight: bold;")
@@ -238,7 +233,7 @@ class Main(object):
         # Set background image
         self.forgot_password_background = QtWidgets.QLabel(self.forgot_password_frame)
         self.forgot_password_background.setGeometry(QtCore.QRect(0, 0, 800, 500))
-        self.forgot_password_background.setPixmap(QtGui.QPixmap("Application Pictures and Icons/forgot.jpeg"))
+        self.forgot_password_background.setPixmap(QtGui.QPixmap("Application Pictures and Icons/forgot1.png"))
 
         self.login_screen_logo = QtWidgets.QLabel(self.forgot_password_frame)
         self.login_screen_logo.setFixedSize(200, 200)
@@ -248,43 +243,49 @@ class Main(object):
         self.login_screen_logo.show()
 
         self.forgot_password_title = QtWidgets.QLabel("Forgot Password", self.forgot_password_frame)
-        self.forgot_password_title.setGeometry(QtCore.QRect(300, 30, 300, 30))
+        self.forgot_password_title.setGeometry(QtCore.QRect(300, 30, 300, 50))
         self.forgot_password_title.setStyleSheet("font-size: 30px; font-weight: bold;")
         self.forgot_password_title.show()
 
+        self.username_label = QtWidgets.QLabel("Name:", self.forgot_password_frame)
+        self.username_label.setGeometry(QtCore.QRect(50, 150, 100, 30))
+        self.username_label.setStyleSheet("font-size: 20px;font-weight: bold;")
+        self.username_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
+        self.username_entry.setGeometry(QtCore.QRect(160, 150, 150, 30))
+
         self.email_label = QtWidgets.QLabel("Email:", self.forgot_password_frame)
-        self.email_label.setGeometry(QtCore.QRect(250, 200, 80, 30))
-        self.email_label.setStyleSheet("font-weight: bold;")
+        self.email_label.setGeometry(QtCore.QRect(450, 150, 80, 30))
+        self.email_label.setStyleSheet("font-size: 20px;font-weight: bold;")
         self.email_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.email_entry.setGeometry(QtCore.QRect(350, 200, 200, 30))
+        self.email_entry.setGeometry(QtCore.QRect(550, 150, 150, 30))
 
         self.security_question_label = QtWidgets.QLabel("Question:", self.forgot_password_frame)
-        self.security_question_label.setGeometry(QtCore.QRect(250, 250, 80, 30))
-        self.security_question_label.setStyleSheet("font-weight: bold;")
+        self.security_question_label.setGeometry(QtCore.QRect(50, 250, 120, 30))
+        self.security_question_label.setStyleSheet("font-size: 20px;font-weight: bold;")
         self.security_question_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.security_question_entry.setGeometry(QtCore.QRect(350, 250, 200, 30))
+        self.security_question_entry.setGeometry(QtCore.QRect(160, 250, 150, 30))
 
         self.security_answer_label = QtWidgets.QLabel("Answer:", self.forgot_password_frame)
-        self.security_answer_label.setGeometry(QtCore.QRect(250, 300, 80, 30))
-        self.security_answer_label.setStyleSheet("font-weight: bold;")
+        self.security_answer_label.setGeometry(QtCore.QRect(450, 250, 80, 30))
+        self.security_answer_label.setStyleSheet("font-size: 20px; font-weight: bold; ")
         self.security_answer_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.security_answer_entry.setGeometry(QtCore.QRect(350, 300, 200, 30))
+        self.security_answer_entry.setGeometry(QtCore.QRect(550, 250, 150, 30))
 
         self.new_password_label = QtWidgets.QLabel("New Password:", self.forgot_password_frame)
-        self.new_password_label.setGeometry(QtCore.QRect(240, 350, 100, 30))
-        self.new_password_label.setStyleSheet("font-weight: bold;")
+        self.new_password_label.setGeometry(QtCore.QRect(10, 350, 150, 30))
+        self.new_password_label.setStyleSheet("font-size: 20px;font-weight: bold;")
         self.new_password_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.new_password_entry.setGeometry(QtCore.QRect(350, 350, 200, 30))
+        self.new_password_entry.setGeometry(QtCore.QRect(160, 350, 150, 30))
 
-        self.confirm_password_label = QtWidgets.QLabel("Confirm Password:", self.forgot_password_frame)
-        self.confirm_password_label.setGeometry(QtCore.QRect(220, 400, 120, 30))
-        self.confirm_password_label.setStyleSheet("font-weight: bold;")
+        self.confirm_password_label = QtWidgets.QLabel("Confirm:", self.forgot_password_frame)
+        self.confirm_password_label.setGeometry(QtCore.QRect(450, 350, 120, 30))
+        self.confirm_password_label.setStyleSheet("font-size: 20px;font-weight: bold;")
         self.confirm_password_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.confirm_password_entry.setGeometry(QtCore.QRect(350, 400, 200, 30))
+        self.confirm_password_entry.setGeometry(QtCore.QRect(550, 350, 150, 30))
 
-        self.reset_button = QtWidgets.QPushButton("Reset Password", self.forgot_password_frame)
-        self.reset_button.setGeometry(QtCore.QRect(350, 500, 100, 30))
-        self.reset_button.setStyleSheet("font-weight: bold;")
+        self.change_password_button = QtWidgets.QPushButton("Change Password", self.forgot_password_frame)
+        self.change_password_button.setGeometry(QtCore.QRect(300, 420, 200, 30))
+        # self.change_password_button.clicked.connect(self.change_password)
 
         self.forgot_password_frame.show()
 
@@ -365,7 +366,7 @@ class Main(object):
         # Set background image
         self.forgot_password_background = QtWidgets.QLabel(self.forgot_password_frame)
         self.forgot_password_background.setGeometry(QtCore.QRect(0, 0, 800, 500))
-        self.forgot_password_background.setPixmap(QtGui.QPixmap("Application Pictures and Icons/admin_reset_password.png"))
+        self.forgot_password_background.setPixmap(QtGui.QPixmap("Application Pictures and Icons/forgot1.png"))
 
         self.login_screen_logo = QtWidgets.QLabel(self.forgot_password_frame)
         self.login_screen_logo.setFixedSize(200, 200)
@@ -375,47 +376,51 @@ class Main(object):
         self.login_screen_logo.show()
 
         self.forgot_password_title = QtWidgets.QLabel("Forgot Password", self.forgot_password_frame)
-        self.forgot_password_title.setGeometry(QtCore.QRect(300, 30, 300, 30))
+        self.forgot_password_title.setGeometry(QtCore.QRect(300, 30, 300, 50))
         self.forgot_password_title.setStyleSheet("font-size: 30px; font-weight: bold;")
         self.forgot_password_title.show()
 
+        self.username_label = QtWidgets.QLabel("Name:", self.forgot_password_frame)
+        self.username_label.setGeometry(QtCore.QRect(50, 150, 100, 30))
+        self.username_label.setStyleSheet("font-size: 20px;font-weight: bold;")
+        self.username_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
+        self.username_entry.setGeometry(QtCore.QRect(160, 150, 150, 30))
+
         self.email_label = QtWidgets.QLabel("Email:", self.forgot_password_frame)
-        self.email_label.setGeometry(QtCore.QRect(250, 200, 80, 30))
-        self.email_label.setStyleSheet("font-weight: bold;")
+        self.email_label.setGeometry(QtCore.QRect(450, 150, 80, 30))
+        self.email_label.setStyleSheet("font-size: 20px;font-weight: bold;")
         self.email_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.email_entry.setGeometry(QtCore.QRect(350, 200, 200, 30))
+        self.email_entry.setGeometry(QtCore.QRect(550, 150, 150, 30))
 
         self.security_question_label = QtWidgets.QLabel("Question:", self.forgot_password_frame)
-        self.security_question_label.setGeometry(QtCore.QRect(250, 250, 80, 30))
-        self.security_question_label.setStyleSheet("font-weight: bold;")
+        self.security_question_label.setGeometry(QtCore.QRect(50, 250, 120, 30))
+        self.security_question_label.setStyleSheet("font-size: 20px;font-weight: bold;")
         self.security_question_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.security_question_entry.setGeometry(QtCore.QRect(350, 250, 200, 30))
+        self.security_question_entry.setGeometry(QtCore.QRect(160, 250, 150, 30))
 
         self.security_answer_label = QtWidgets.QLabel("Answer:", self.forgot_password_frame)
-        self.security_answer_label.setGeometry(QtCore.QRect(250, 300, 80, 30))
-        self.security_answer_label.setStyleSheet("font-weight: bold;")
+        self.security_answer_label.setGeometry(QtCore.QRect(450, 250, 80, 30))
+        self.security_answer_label.setStyleSheet("font-size: 20px; font-weight: bold; ")
         self.security_answer_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.security_answer_entry.setGeometry(QtCore.QRect(350, 300, 200, 30))
+        self.security_answer_entry.setGeometry(QtCore.QRect(550, 250, 150, 30))
 
         self.new_password_label = QtWidgets.QLabel("New Password:", self.forgot_password_frame)
-        self.new_password_label.setGeometry(QtCore.QRect(240, 350, 100, 30))
-        self.new_password_label.setStyleSheet("font-weight: bold;")
+        self.new_password_label.setGeometry(QtCore.QRect(10, 350, 150, 30))
+        self.new_password_label.setStyleSheet("font-size: 20px;font-weight: bold;")
         self.new_password_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.new_password_entry.setGeometry(QtCore.QRect(350, 350, 200, 30))
+        self.new_password_entry.setGeometry(QtCore.QRect(160, 350, 150, 30))
 
-        self.confirm_password_label = QtWidgets.QLabel("Confirm Password:", self.forgot_password_frame)
-        self.confirm_password_label.setGeometry(QtCore.QRect(220, 400, 120, 30))
-        self.confirm_password_label.setStyleSheet("font-weight: bold;")
+        self.confirm_password_label = QtWidgets.QLabel("Confirm:", self.forgot_password_frame)
+        self.confirm_password_label.setGeometry(QtCore.QRect(450, 350, 120, 30))
+        self.confirm_password_label.setStyleSheet("font-size: 20px;font-weight: bold;")
         self.confirm_password_entry = QtWidgets.QLineEdit(self.forgot_password_frame)
-        self.confirm_password_entry.setGeometry(QtCore.QRect(350, 400, 200, 30))
+        self.confirm_password_entry.setGeometry(QtCore.QRect(550, 350, 150, 30))
 
-        self.reset_button = QtWidgets.QPushButton("Reset Password", self.forgot_password_frame)
-        self.reset_button.setGeometry(QtCore.QRect(350, 450, 100, 30))
-        self.reset_button.setStyleSheet("font-weight: bold;")
+        self.change_password_button = QtWidgets.QPushButton("Change Password", self.forgot_password_frame)
+        self.change_password_button.setGeometry(QtCore.QRect(300, 420, 200, 30))
+        # self.change_password_button.clicked.connect(self.change_password)
 
         self.forgot_password_frame.show()
-
-
 
     def setup_portal(self):
         global username
@@ -614,8 +619,9 @@ class Main(object):
         self.upcoming_events_title_line = self.create_QFrame("upcoming_events_tab", "upcoming_events_title_line",
 
                                                              "HLine", 10, 65, 600, 6)
-        self.student_calendar = self.create_QCalendar("upcoming_events_tab", 20, 80, 450, 450)  # change map fatness"HLine", 10, 65, 500, 6)
-        self.student_calendar = self.create_QCalendar("upcoming_events_tab", 20, 80, 450, 450) # change map fatness
+        self.student_calendar = self.create_QCalendar("upcoming_events_tab", 20, 80, 450,
+                                                      450)  # change map fatness"HLine", 10, 65, 500, 6)
+        self.student_calendar = self.create_QCalendar("upcoming_events_tab", 20, 80, 450, 450)  # change map fatness
 
         self.student_calendar.selectionChanged.connect(self.student_upcoming_events_calendar)
         self.day_events_label = self.create_QLabel("upcoming_events_tab", "day_events_label", "  Selected Event", 560,
@@ -767,7 +773,6 @@ class Main(object):
 
         index = 0
 
-
         for i in range(3):
             for j in range(3):
                 self.event_object = QtWidgets.QGroupBox(self.rewards)
@@ -863,7 +868,7 @@ class Main(object):
         self.faq_label = QtWidgets.QLabel(self.faq_tab)
         self.faq_label.setGeometry(QtCore.QRect(20, 20, 560, 40))
         self.faq_label.setText("<h2>Frequently Asked Questions</h2>")
-        #self.faq__title_line = self.create_QFrame("faq_tab", "faq__title_line", "HLine", 10, 65, 600, 6)Z
+        # self.faq__title_line = self.create_QFrame("faq_tab", "faq__title_line", "HLine", 10, 65, 600, 6)Z
         self.faq_question1 = QtWidgets.QLabel(self.faq_tab)
         self.faq_question1.setGeometry(QtCore.QRect(20, 80, 560, 30))
         self.faq_question1.setText("<b>Q: How can I earn points? </b>")
@@ -1465,6 +1470,7 @@ class Slideshow(QRunnable):
                 break
 
         cursor.close()
+
 
 if __name__ == "__main__":
     import sys
